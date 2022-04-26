@@ -40,15 +40,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+        bt_limpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtExpressao.setText("");
+                txtResultado.setText("");
+            }
+        });
+
+        backspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                TextView expressao = findViewById(R.id.txt_expressao);
+                String string = expressao.getText().toString();
+
+                if(!string.isEmpty()){
+                    byte var0 = 0;
+                    int var1 = string.length()-1;
+                    String txtExpressao = string.substring(var0,var1);
+                    expressao.setText(txtExpressao);
+
+                }
+                txtResultado.setText("");
+            }
+        });
+
+            igual.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                 Expression expressao  = new ExpressionBuilder(txtExpressao.getText().toString()).build();
+                     double resultado = expressao.evaluate();
+                }
+            });
 
 
 
 
 
+}
 
-
-
-    }
 
     private void IniciarComponentes() {
 
@@ -73,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtResultado = findViewById(R.id.txt_resultado);
         backspace = findViewById(R.id.backspace);
 
+
+
     }
 
     public void AcrescentarUmaExpressao(String string, boolean limpar_dados) {
@@ -81,12 +115,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             txtExpressao.setText("");
         }
         if (limpar_dados) {
-            txtResultado.setText("");
+            txtResultado.setText(" ");
             txtExpressao.append(string);
         } else {
             txtExpressao.append(txtResultado.getText());
             txtExpressao.append(string);
-            txtResultado.setText("");
+            txtResultado.setText(" ");
 
         }
     }
@@ -153,7 +187,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.divisao:
                 AcrescentarUmaExpressao("/",false);
                 break;
+
         }
+    }
+
+
+
+
+        }
+
     }
 }
 
